@@ -19,7 +19,7 @@ class BurgerApp(MDApp):
         
         # Initialize database and theme
         self.db = DatabaseManager()
-        self.theme_cls.primary_palette = "Red"
+        self.theme_cls.primary_palette = "Blue"
 
         # Load KV layout
         Builder.load_file("kv/burger.kv")
