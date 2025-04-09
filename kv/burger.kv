@@ -1,0 +1,192 @@
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import dp kivy.metrics.dp
+
+ScreenManager:
+    transition: FadeTransition(duration=0.5)
+    WelcomeScreen:
+    LoginScreen:
+    SignUpScreen:
+    HomeScreen:
+
+<WelcomeScreen>:
+    name: "welcome_screen"
+    FloatLayout:
+        Image:
+            source: "assets/logo2.png"
+            size_hint: None, None
+            size: "200dp", "200dp"
+            pos_hint: {"center_x": 0.5, "center_y": 0.7}
+
+        MDLabel:
+            text: "[b]Welcome to Net's Burger[/b]"
+            halign: "center"
+            font_style: "H4"
+            pos_hint: {"center_x": 0.5, "center_y": 0.45}
+            color: 0.2, 0.2, 0.2, 1
+            markup: True
+
+        MDRaisedButton:
+            text: "[b]Get Started[/b]"
+            markup: True
+            height: "80dp"
+            pos_hint: {"center_x": 0.5, "center_y": 0.2}
+            on_release: app.get_started()
+            
+<LoginScreen>:
+    name: "login_screen"
+    FloatLayout:
+        Image:
+            source: "assets/logo1.jpeg"
+            allow_stretch: True
+            keep_ratio: False
+            size: self.parent.size
+            pos: self.parent.pos
+
+        MDCard:
+            orientation: "vertical"
+            padding: dp(25)
+            spacing: dp(15)
+            elevation: 10
+            radius: [20]
+            size_hint: None, None
+            size: "360dp", "520dp"
+            md_bg_color: 1, 1, 1, 0.9
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+            Image:
+                source: "assets/logo2.png"
+                size_hint_y: None
+                height: "130dp"
+
+            MDLabel:
+                text: "Login your Account"
+                halign: "center"
+                font_style: "H5"
+                color: 0.2, 0.2, 0.2, 1
+
+            MDTextField:
+                id: login_username
+                hint_text: "Username"
+                mode: "rectangle"
+                size_hint_x: 1
+                pos_hint: {"center_x": 0.5}
+
+            MDTextField:
+                id: login_password
+                hint_text: "Password"
+                password: True
+                mode: "rectangle"
+                size_hint_x: 1
+                pos_hint: {"center_x": 0.5}
+
+            MDRaisedButton:
+                text: "[b]Login[/b]"
+                markup: True
+                size_hint: 1, None
+                height: "60dp"
+                pos_hint: {"center_x": 0.5}
+                on_release: root.validate_login()
+
+            MDTextButton:
+                text: "Don't have an account? [color=0000FF]Sign up[/color]"
+                pos_hint: {"center_x": 0.5}
+                on_release: app.go_to_signup()
+                markup: True
+                text_color: 0, 0, 0, 1
+
+<SignUpScreen>:
+    name: "signup_screen"
+    FloatLayout:
+        Image:
+            source: "assets/logo1.jpeg"
+            allow_stretch: True
+            keep_ratio: False
+            size: self.parent.size
+            pos: self.parent.pos
+
+        MDCard:
+            orientation: "vertical"
+            padding: dp(25)
+            spacing: dp(15)
+            elevation: 10
+            radius: [20]
+            size_hint: None, None
+            size: "360dp", "640dp"
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            md_bg_color: 1, 1, 1, 0.9
+
+            Image:
+                source: "assets/logo2.png"
+                size_hint_y: None
+                height: "120dp"
+
+            MDLabel:
+                text: "Create an Account"
+                halign: "center"
+                font_style: "H5"
+                color: 0.2, 0.2, 0.2, 1
+
+            MDTextField:
+                id: signup_fullname
+                hint_text: "Full Name"
+                mode: "rectangle"
+                size_hint_x: 1
+                pos_hint: {"center_x": 0.5}
+
+            MDTextField:
+                id: signup_username
+                hint_text: "New Username"
+                mode: "rectangle"
+                size_hint_x: 1
+                pos_hint: {"center_x": 0.5}
+
+            MDTextField:
+                id: signup_password
+                hint_text: "Password"
+                password: True
+                mode: "rectangle"
+                size_hint_x: 1
+                pos_hint: {"center_x": 0.5}
+
+            MDTextField:
+                id: signup_confirm
+                hint_text: "Confirm Password"
+                password: True
+                mode: "rectangle"
+                size_hint_x: 1
+                pos_hint: {"center_x": 0.5}
+
+            MDRaisedButton:
+                text: "[b]Sign Up[/b]"
+                markup: True
+                size_hint: 1, None
+                height: "60dp"
+                pos_hint: {"center_x": 0.5}
+                on_release: root.create_account()
+
+            MDTextButton:
+                text: "Already have an account? [color=0000FF]Login[/color]"
+                markup: True
+                pos_hint: {"center_x": 0.5}
+                on_release: app.go_back()
+                text_color: 0, 0, 0, 1
+
+<HomeScreen>:
+    name: "home_screen"
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: dp(40)
+        spacing: dp(20)
+
+        MDLabel:
+            text: "Welcome to [User's Full Name]"
+            halign: "center"
+            font_style: "H4"
+            id: welcome_label  # This will be dynamically updated with the full name
+
+        MDRaisedButton:
+            text: "[b]Logout[/b]"
+            markup: True
+            height: "60dp"
+            pos_hint: {"center_x": 0.5}
+            on_release: app.root.current = "login_screen"
